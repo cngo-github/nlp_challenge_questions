@@ -15,7 +15,9 @@ public class Main {
 		} catch (FileNotFoundException e) {
 			System.out.println("Did not find the properties file: " + propFile);
 		} finally {
-			ui.close();
+			if(ui != null) {
+				ui.close();
+			}
 		}
 	}
 }

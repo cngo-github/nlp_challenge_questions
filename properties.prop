@@ -1,2 +1,3 @@
 annotators=tokenize, ssplit, pos, lemma, ner, parse, dcoref
 question=Describe a personal memory.  Include names of people and places.
+posModel=./edu/stanford/nlp/models/pos-tagger/english-bidirectional/english-bidirectional-distsim.tagger

@@ -17,6 +17,7 @@ import edu.security.file.FileOps;
 import edu.security.generator.BlankGenerator;
 import edu.security.generator.ChallengeGenerator;
 import edu.security.generator.DocRetGenerator;
+import edu.security.generator.LuceneGenerator;
 
 public class UserInterface {
 	private Properties properties = null;
@@ -34,8 +35,8 @@ public class UserInterface {
 	}
 	
 	public void printMainUI() {
-		String mainUI = "Select a technique.\n\n\tI) Input a story\n\t" +
-				"F) Fill in the blanks.\n" +
+		String mainUI = "Select a technique.\n\n\tI) Input a story\n" +
+				"\tF) Fill in the blanks.\n\tL) Lucene Document Recovery\n" +
 				"\tD) Document recovery.\n\tQ) Quit\n\n" +
 				"Selection: ";
 		
@@ -64,6 +65,23 @@ public class UserInterface {
 					this.challenger = new DocRetGenerator(
 							this.properties.getProperty("annotators"), this.files,
 							this.properties.getProperty("question"), 0.5);
+					this.challenge();
+					
+					break;
+				case "l":
+					if(this.files.isEmpty()) {
+						this.addStory();
+					}
+					
+					try {
+						this.challenger = new LuceneGenerator(
+								this.properties.getProperty("annotators"), this.files,
+								this.properties.getProperty("question"),
+								this.properties.getProperty("posModel"), 0.5);
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 					this.challenge();
 					
 					break;
@@ -133,6 +151,9 @@ public class UserInterface {
 			}
 		};
 		
-		this.files = FileOps.scanDirectory("./userStories", filter);
+		List<String> files = FileOps.scanDirectory("./userStories", filter);
+		for(String file: files) {
+			this.files.add("./userStories/" + file);
+		}
 	}
 }

@@ -46,9 +46,12 @@ public class FileOps {
 				ret = ret + scan.nextLine();
 			}
 		} catch (FileNotFoundException e) {
+			System.out.println("File not found: " + fileName);
 			ret = "";
 		} finally {
-			scan.close();
+			if(scan != null) {
+				scan.close();
+			}
 		}
 		
 		return ret;
@@ -63,7 +66,6 @@ public class FileOps {
 		List<File> foundList = Arrays.asList(found);
 		
 		for(File file: foundList) {
-			System.out.println(file.getName());
 			ret.add(file.getName());
 		}
 		
