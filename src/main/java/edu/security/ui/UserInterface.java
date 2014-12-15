@@ -101,7 +101,7 @@ public class UserInterface {
 						(new Random()).nextInt() + ".txt";
 				
 				try {
-					FileOps.saveToFile(input, fileName);
+					FileOps.saveToFile(input, "./userStories/" + fileName);
 					this.files.add(fileName);
 					check = false;
 				} catch (Exception e) {
@@ -133,6 +133,6 @@ public class UserInterface {
 			}
 		};
 		
-		this.files = FileOps.scanDirectory(".", filter);
+		this.files = FileOps.scanDirectory("./userStories", filter);
 	}
 }
